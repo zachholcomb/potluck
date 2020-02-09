@@ -6,6 +6,8 @@ require './lib/potluck'
 class PotluckTest < Minitest::Test
   def setup
     @potluck = Potluck.new("7-13-18")
+    @couscous_salad = Dish.new("Couscous Salad", :appetizer)
+    @cocktail_meatballs = Dish.new("Cocktail Meatballs", :entre)
   end
 
   def test_it_exists_and_has_attributes
@@ -16,29 +18,21 @@ class PotluckTest < Minitest::Test
   def test_it_starts_with_no_dishes
     assert_equal [], @potluck.dishes
   end
+
+  def test_it_can_add_dishes
+    @potluck.add_dish(@couscous_salad)
+    @potluck.add_dish(@cocktail_meatballs)
+    assert_equal [@couscous_salad, @cocktail_meatballs], @potluck.dishes
+    assert_equal 2, @potluck.dishes.length
+  end
+
 end
 
 
 
 
-# pry(main)> potluck.date
-# #=> "7-13-18"
-#
-# pry(main)> potluck.dishes
-# #=> []
-#
-# pry(main)> couscous_salad = Dish.new("Couscous Salad", :appetizer)
-# #=> #<Dish:0x00007fccc4249940...>
-#
-# pry(main)> cocktail_meatballs = Dish.new("Cocktail Meatballs", :entre)
-# #=> #<Dish:0x00007fccc499ceb8...>
-#
-# pry(main)> potluck.add_dish(couscous_salad)
-#
-# pry(main)> potluck.add_dish(cocktail_meatballs)
-#
-# pry(main)> potluck.dishes
-# #=> [#<Dish:0x00007fccc4249940...>, #<Dish:0x00007fccc499ceb8...>]
-#
+
+
+
 # pry(main)> potluck.dishes.length
 # #=> 2
