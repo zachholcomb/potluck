@@ -12,5 +12,4 @@ class DishTest < Minitest:: Test
     assert_equal "Couscous Salad", @dish.name
     assert_equal :appetizer, @dish.category
   end
-
 end

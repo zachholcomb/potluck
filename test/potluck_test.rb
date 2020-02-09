@@ -11,6 +11,7 @@ class PotluckTest < Minitest::Test
     @summer_pizza = Dish.new("Summer Pizza", :appetizer)
     @roast_pork = Dish.new("Roast Pork", :entre)
     @candy_salad = Dish.new("Candy Salad", :dessert)
+    @bean_dip = Dish.new("Bean Dip", :appetizer)
   end
 
   def test_it_exists_and_has_attributes
@@ -36,11 +37,33 @@ class PotluckTest < Minitest::Test
     @potluck.add_dish(@cocktail_meatballs)
     @potluck.add_dish(@candy_salad)
     assert_equal [@couscous_salad, @summer_pizza], @potluck.get_all_from_category(:appetizer)
-    # @potluck.get_all_from_category(:appetizer).first
+    assert_equal @couscous_salad, @potluck.get_all_from_category(:appetizer).first
+    assert_equal "Couscous Salad", @potluck.get_all_from_category(:appetizer).first.name
   end
 
+  def test_it_can_generate_a_menu
+    @potluck.add_dish(@couscous_salad)
+    @potluck.add_dish(@summer_pizza)
+    @potluck.add_dish(@roast_pork)
+    @potluck.add_dish(@cocktail_meatballs)
+    @potluck.add_dish(@candy_salad)
+    @potluck.add_dish(@bean_dip)
+
+    menu = {
+      :appetizer=>["Bean Dip", "Couscous Salad", "Summer Pizza"],
+      :entre=>["Cocktail Meatballs", "Roast Pork"],
+      :dessert=>["Candy Salad"]}
+      assert_equal menu, @potluck.menu
+  end
+
+  def test_it_can_calculate_dish_category_ratio
+    @potluck.add_dish(@couscous_salad)
+    @potluck.add_dish(@summer_pizza)
+    @potluck.add_dish(@roast_pork)
+    @potluck.add_dish(@cocktail_meatballs)
+    @potluck.add_dish(@candy_salad)
+    @potluck.add_dish(@bean_dip)
+
+    assert_equal 50.0, @potluck.ratio(:appetizer)
+  end
 end
-
-
-# pry(main)> potluck.get_all_from_category(:appetizer).first.name
-# => "Couscous Salad"
